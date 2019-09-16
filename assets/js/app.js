@@ -1,29 +1,23 @@
 $(document).ready(function () {
-    //set the time limit for each question
-    var timeLimit = 15
-    var correct = 0, incorrect = 0, wins = 0, losses = 0
-
-    var questionBody, questionText = ""
-    var headerElem
 
     console.log("inited all variables, but not objects")
 
     buildQuestion(q2)
 
-    function gameLoop() {
-
-    }
 
     function resetAttr() {
         $("#q1").attr("correct", "no")
-        $("#q1").attr("correct", "no")
-        $("#q1").attr("correct", "no")
-        $("#q1").attr("correct", "no")
+        $("#q2").attr("correct", "no")
+        $("#q3").attr("correct", "no")
+        $("#q4").attr("correct", "no")
 
     }
 
     function buildQuestion(question) {
         console.log("build_question")
+
+        resetAttr();
+
         $("#questionHeader").text(question.question)
         $("#q1").text(question.opt1)
         $("#q2").text(question.opt2)
@@ -53,6 +47,7 @@ $(document).ready(function () {
     $(".option").click(function () {
         if ($(this).attr("correct") === "yes") {
             alert("Correct Option")
+            buildQuestion(q4);
         } else {
             alert("wrong choice")
         }
