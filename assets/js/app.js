@@ -4,10 +4,37 @@ $(document).ready(function () {
     let currentTimeout;
     let jsonNextQ;
 
+    $("#results").hide();
+
+    function endGame() {
+        clearTimeout(currentTimeout);
+        $("#questions").empty();
+        $("#results").show();
+
+        $("#correct").text(`Correct: ${correct}`)
+        $("#incorrect").text(`Incorrect: ${incorrect}`)
+        $("#unanswered").text(`Unanswered: ${unanswered}`)
+
+    }
+
+    function checkIfLastQ() {
+        if (jsonNextQ === "lastq") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     function countdown() {
         unanswered++;
-        buildQuestion(jsonNextQ)
+        if (checkIfLastQ()) {
+            endGame();
+        } else {
+            buildQuestion(jsonNextQ)
+        }
     }
+
 
     function resetAttrs() {
 
@@ -19,6 +46,9 @@ $(document).ready(function () {
     }
 
     function buildQuestion(question) {
+        console.log(checkIfLastQ());
+
+
         resetAttrs();
 
         //traverse json
@@ -55,12 +85,20 @@ $(document).ready(function () {
             clearTimeout(currentTimeout);
             correct++;
             alert("Correct Option");
-            buildQuestion(jsonNextQ);
+            if (checkIfLastQ()) {
+                endGame();
+            } else {
+                buildQuestion(jsonNextQ);
+            }
         } else {
             clearTimeout(currentTimeout);
             incorrect++;
             alert("wrong choice");
-            buildQuestion(jsonNextQ);
+            if (checkIfLastQ()) {
+                endGame();
+            } else {
+                buildQuestion(jsonNextQ);
+            }
         }
     });
 

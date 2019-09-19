@@ -5,7 +5,7 @@ var q6 = {
     opt3: "option 3-6",
     opt4: "option 4-6",
     answer: 2,
-    nextQ: q6
+    nextQ: "lastq"
 }
 
 var q5 = {
