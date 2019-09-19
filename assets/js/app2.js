@@ -1,7 +1,9 @@
 $(document).ready(function () {
 
-    let correct = 0, incorrect = 0;
-    let currentTimeout;
+    let currentQuestion = 0
+
+    buildQuestion(q2)
+
 
     function resetAttrs() {
 
@@ -13,6 +15,8 @@ $(document).ready(function () {
     }
 
     function buildQuestion(question) {
+        console.log("build_question");
+        console.log(currentQuestion);
         resetAttrs();
 
         //traverse json
@@ -40,24 +44,23 @@ $(document).ready(function () {
 
         $("#question-number").attr("data-question", JSON.stringify(question.nextQ))
         console.log(question.nextQ)
-        
-
     }
+
+    console.log("should trigger buildQuestion now...")
 
     $(".option").click(function () {
         if ($(this).attr("correct") === "yes") {
-            //clearTimeout(currentTimeout);
             alert("Correct Option");
             let ques = $("#question-number").attr("data-question");
             ques = JSON.parse(ques)
             console.log("Question Number: " +  ques)
-            buildQuestion(ques)
+            buildQuestion( ques );
         } else {
             alert("wrong choice");
         }
     });
 
-
+    currentQuestion = 0
     buildQuestion(q1);
 
 
