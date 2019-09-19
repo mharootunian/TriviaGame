@@ -1,11 +1,10 @@
 $(document).ready(function () {
 
-    let correct = 0, incorrect = 0, unanswered = 0;
+    let correct = 0, incorrect = 0;
     let currentTimeout;
     let jsonNextQ;
 
     function countdown() {
-        unanswered++;
         buildQuestion(jsonNextQ)
     }
 
@@ -44,26 +43,29 @@ $(document).ready(function () {
                 break;
         }
 
+        $("#question-number").attr("data-question", JSON.stringify(question.nextQ))
         console.log(question.nextQ)
         jsonNextQ = question.nextQ
-        currentTimeout = setTimeout(countdown, 5000)
+        setTimeout(countdown, 5000)
+        
 
     }
 
     $(".option").click(function () {
         if ($(this).attr("correct") === "yes") {
-            clearTimeout(currentTimeout);
-            correct++;
+            //clearTimeout(currentTimeout);
             alert("Correct Option");
-            buildQuestion(jsonNextQ);
+            let ques = $("#question-number").attr("data-question");
+            ques = JSON.parse(ques)
+            console.log("Question Number: " +  ques)
+            buildQuestion(ques)
         } else {
-            clearTimeout(currentTimeout);
-            incorrect++;
             alert("wrong choice");
-            buildQuestion(jsonNextQ);
         }
     });
 
+
+    currentQuestion = 0
     buildQuestion(q1);
 
 

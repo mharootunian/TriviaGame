@@ -1,3 +1,23 @@
+var q6 = {
+    question: "Question, question question question... question? 6",
+    opt1: "option 1-6",
+    opt2: "option 2-6",
+    opt3: "option 3-6",
+    opt4: "option 4-6",
+    answer: 2,
+    nextQ: q6
+}
+
+var q5 = {
+    question: "Question, question question question... question? 5",
+    opt1: "option 1-5",
+    opt2: "option 2-5",
+    opt3: "option 3-5",
+    opt4: "option 4-5",
+    answer: 1,
+    nextQ: q6
+}
+
 var q4 = {
     question: "Question, question question question... question? 4",
     opt1: "option 1-4",
@@ -5,10 +25,8 @@ var q4 = {
     opt3: "option 3-4",
     opt4: "option 4-4",
     answer: 4,
-    nextQ: q4
+    nextQ: q5
 }
-
-
 
 var q3 = {
     question: "Question, question question question... question? 3",
