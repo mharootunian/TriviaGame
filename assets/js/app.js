@@ -62,6 +62,7 @@ $(document).ready(function () {
 
     function buildQuestion(question) {
         console.log(checkIfLastQ());
+        updateTimeLeft();
 
         resetAttrs();
 
@@ -94,7 +95,6 @@ $(document).ready(function () {
     }
 
     $(".option").click(function () {
-        updateTimeLeft();
 
         if ($(this).attr("correct") === "yes") {
             clearTimeout(currentTimeout);
