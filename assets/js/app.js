@@ -3,18 +3,19 @@ $(document).ready(function () {
     let correct = 0, incorrect = 0, unanswered = 0;
     let currentTimeout;
     let jsonNextQ;
+    let timeLeft, currentInterval;
 
     $("#results").hide();
 
     function endGame() {
         clearTimeout(currentTimeout);
+        clearInterval(currentInterval);
         $("#questions").empty();
         $("#results").show();
 
-        $("#correct").text(`Correct: ${correct}`)
-        $("#incorrect").text(`Incorrect: ${incorrect}`)
-        $("#unanswered").text(`Unanswered: ${unanswered}`)
-
+        $("#correct").text(`Correct: ${correct}`);
+        $("#incorrect").text(`Incorrect: ${incorrect}`);
+        $("#unanswered").text(`Unanswered: ${unanswered}`);
     }
 
     function checkIfLastQ() {
@@ -28,6 +29,10 @@ $(document).ready(function () {
 
     function countdown() {
         unanswered++;
+        clearInterval(currentInterval)
+        timeLeft = 5;
+        $("#timeLeft").text(5)
+        updateTimeLeft();
         if (checkIfLastQ()) {
             endGame();
         } else {
@@ -35,24 +40,32 @@ $(document).ready(function () {
         }
     }
 
+    function updateTimeLeft() {
+        currentInterval = setInterval(function() {
+            //let timeleft = $("#timeLeft").text() - 1;
+            timeLeft--;
+            $("#timeLeft").text(timeLeft);
+            console.log("update")
+        }, 1000)
+    }
+    
+    function resetInterval(interva) {
+
+    }
 
     function resetAttrs() {
-
         $("#q1").attr("correct", "no");
         $("#q2").attr("correct", "no");
         $("#q3").attr("correct", "no");
         $("#q4").attr("correct", "no");
-
     }
 
     function buildQuestion(question) {
         console.log(checkIfLastQ());
 
-
         resetAttrs();
 
         //traverse json
-
         $("#questionHeader").text(question.question);
         $("#q1").text(question.opt1);
         $("#q2").text(question.opt2);
@@ -77,10 +90,12 @@ $(document).ready(function () {
         console.log(question.nextQ)
         jsonNextQ = question.nextQ
         currentTimeout = setTimeout(countdown, 5000)
-
+        //$("#timeLeft").text()
     }
 
     $(".option").click(function () {
+        updateTimeLeft();
+
         if ($(this).attr("correct") === "yes") {
             clearTimeout(currentTimeout);
             correct++;
@@ -103,6 +118,4 @@ $(document).ready(function () {
     });
 
     buildQuestion(q1);
-
-
 });
